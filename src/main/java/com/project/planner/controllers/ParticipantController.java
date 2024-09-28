@@ -2,7 +2,7 @@ package com.project.planner.controllers;
 
 import com.project.planner.domains.participant.Participant;
 import com.project.planner.dtos.ParticipantRequestPayload;
-import com.project.planner.repositories.ParticipantRepository;
+import com.project.planner.services.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +14,14 @@ import java.util.UUID;
 public class ParticipantController {
 
     @Autowired
-    private ParticipantRepository repository;
+    private ParticipantService participantService;
 
     @PostMapping("/confirm/{id}")
     public ResponseEntity<Participant> confirmParticipant(@PathVariable final UUID id, @RequestBody final ParticipantRequestPayload payload) {
-        final var participant = repository.findById(id);
-
-        if (participant.isPresent()) {
-            final var rawParticipant = participant.get();
-            rawParticipant.setIsConfirmed(true);
-            rawParticipant.setName(payload.name());
-
-            this.repository.save(rawParticipant);
-
-            return ResponseEntity.ok(rawParticipant);
-        }
-
-        return ResponseEntity.notFound().build();
+        final var participant = participantService.findById(id);
+        participant.setIsConfirmed(true);
+        participant.setName(payload.name());
+        this.participantService.save(participant);
+        return ResponseEntity.ok(participant);
     }
 }

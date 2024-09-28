@@ -2,10 +2,11 @@ package com.project.planner.services.impl;
 
 import com.project.planner.domains.participant.Participant;
 import com.project.planner.domains.trip.Trip;
-import com.project.planner.dtos.ParticipantDTO;
 import com.project.planner.dtos.ParticipantCreateResponse;
+import com.project.planner.dtos.ParticipantDTO;
 import com.project.planner.repositories.ParticipantRepository;
 import com.project.planner.services.ParticipantService;
+import com.project.planner.services.exception.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,17 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Override
+    public Participant findById(final UUID id) {
+        final var participant = this.participantRepository.findById(id);
+        return participant.orElseThrow(() -> new ObjectNotFound("Participante não encontrado"));
+    }
+
+    @Override
+    public Participant save(final Participant participant) {
+        return this.participantRepository.save(participant);
+    }
 
     @Override
     public void registerParticipantsToTrip(final List<String> participantsToInvite, final Trip trip) {

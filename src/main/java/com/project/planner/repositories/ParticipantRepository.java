@@ -4,9 +4,8 @@ import com.project.planner.domains.participant.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface ParticipantRepository extends JpaRepository<Participant, UUID> {
+public interface ParticipantRepository extends JpaRepository<Participant, Integer> {
 
-    List<Participant> findParticipantByTripId(final UUID tripId);
+    List<Participant> findParticipantByTripId(final Integer tripId);
 }

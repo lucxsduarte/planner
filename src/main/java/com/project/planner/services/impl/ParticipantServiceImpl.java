@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ParticipantServiceImpl implements ParticipantService {
@@ -20,7 +19,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     private ParticipantRepository participantRepository;
 
     @Override
-    public Participant findById(final UUID id) {
+    public Participant findById(final Integer id) {
         final var participant = this.participantRepository.findById(id);
         return participant.orElseThrow(() -> new ObjectNotFound("Participante não encontrado"));
     }
@@ -46,7 +45,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     }
 
     @Override
-    public void triggerConfirmationEmailToParticipants(final UUID tripId) {
+    public void triggerConfirmationEmailToParticipants(final Integer tripId) {
 
     }
 
@@ -56,7 +55,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     }
 
     @Override
-    public List<ParticipantDTO> getAllParticipantsFromTrip(UUID tripID) {
+    public List<ParticipantDTO> getAllParticipantsFromTrip(Integer tripID) {
         return this.participantRepository.findParticipantByTripId(tripID).stream().map(participant -> new ParticipantDTO(participant.getId(), participant.getName(), participant.getEmail(), participant.getIsConfirmed())).toList();
     }
 }

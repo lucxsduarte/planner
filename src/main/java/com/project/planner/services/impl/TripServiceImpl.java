@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class TripServiceImpl implements TripService {
@@ -18,7 +17,7 @@ public class TripServiceImpl implements TripService {
     private TripRepository tripRepository;
 
     @Override
-    public Trip findById(final UUID id) {
+    public Trip findById(final Integer id) {
         final var participant = this.tripRepository.findById(id);
         return participant.orElseThrow(() -> new ObjectNotFound("Viagem não encontrada."));
     }
@@ -34,7 +33,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip save(Trip trip) {
+    public Trip save(final Trip trip) {
+        if (trip.getStartsAt().isAfter(trip.getEndsAt()) || trip.getStartsAt().isEqual(trip.getEndsAt())) {
+            throw new BusinessException("Data inicial deve ser anterior a data final.");
+        }
+
         return this.tripRepository.save(trip);
     }
 }

@@ -4,9 +4,8 @@ import com.project.planner.domains.activity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface ActivityRepository extends JpaRepository<Activity, UUID> {
+public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 
-    List<Activity> findByTripId(UUID tripId);
+    List<Activity> findByTripId(Integer tripId);
 }

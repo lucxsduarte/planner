@@ -1,6 +1,4 @@
 package com.project.planner.dtos;
 
-import java.util.UUID;
-
-public record LinkDTO(UUID id, String title, String url) {
+public record LinkDTO(Integer id, String title, String url) {
 }

@@ -17,8 +17,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Link {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "title", nullable = false)
     private String title;

@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/participants")
 public class ParticipantController {
@@ -17,7 +15,7 @@ public class ParticipantController {
     private ParticipantService participantService;
 
     @PostMapping("/confirm/{id}")
-    public ResponseEntity<Participant> confirmParticipant(@PathVariable final UUID id, @RequestBody final ParticipantRequestPayload payload) {
+    public ResponseEntity<Participant> confirmParticipant(@PathVariable final Integer id, @RequestBody final ParticipantRequestPayload payload) {
         final var participant = participantService.findById(id);
         participant.setIsConfirmed(true);
         participant.setName(payload.name());

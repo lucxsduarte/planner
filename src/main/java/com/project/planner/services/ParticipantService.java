@@ -6,11 +6,10 @@ import com.project.planner.dtos.ParticipantCreateResponse;
 import com.project.planner.dtos.ParticipantDTO;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface ParticipantService {
 
-    Participant findById(UUID id);
+    Participant findById(Integer id);
 
     Participant save(Participant participant);
 
@@ -18,9 +17,9 @@ public interface ParticipantService {
 
     ParticipantCreateResponse registerParticipantToTrip(final String email, final Trip trip);
 
-    void triggerConfirmationEmailToParticipants(final UUID tripId);
+    void triggerConfirmationEmailToParticipants(final Integer tripId);
 
     void triggerConfirmationEmailToParticipant(final String email);
 
-    List<ParticipantDTO> getAllParticipantsFromTrip(UUID tripID);
+    List<ParticipantDTO> getAllParticipantsFromTrip(Integer tripID);
 }

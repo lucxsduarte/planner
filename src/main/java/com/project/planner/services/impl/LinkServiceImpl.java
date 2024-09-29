@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class LinkServiceImpl implements LinkService {
@@ -27,7 +26,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public List<LinkDTO> getAllLinksFromTrip(final UUID tripId) {
+    public List<LinkDTO> getAllLinksFromTrip(final Integer tripId) {
         return this.linkRepository.findByTripId(tripId).stream().map(link -> new LinkDTO(link.getId(), link.getTitle(), link.getUrl())).toList();
     }
 }

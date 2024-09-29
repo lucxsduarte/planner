@@ -19,7 +19,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public Trip findById(final Integer id) {
         final var participant = this.tripRepository.findById(id);
-        return participant.orElseThrow(() -> new ObjectNotFound("Viagem não encontrada."));
+        return participant.orElseThrow(() -> new ObjectNotFound("Viagem %s não encontrada.".formatted(id)));
     }
 
     @Override

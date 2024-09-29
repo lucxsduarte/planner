@@ -40,13 +40,6 @@ public class TripController {
         return ResponseEntity.ok(new TripCreateResponse(newTrip.getId()));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Trip> getTripDetails(@PathVariable final UUID id) {
-        final var trip = this.tripService.findById(id);
-
-        return ResponseEntity.ok(trip);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Trip> updateTrip(@PathVariable final UUID id, @RequestBody final TripRequestPayload payload) {
         final var trip = this.tripService.findById(id);
@@ -54,6 +47,19 @@ public class TripController {
         trip.setStartsAt(LocalDateTime.parse(payload.starts_at(), DateTimeFormatter.ISO_DATE_TIME));
         trip.setDestination(payload.destination());
         this.tripService.save(trip);
+
+        return ResponseEntity.ok(trip);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Trip>> getTrips() {
+        final var trips = this.tripService.findAll();
+        return ResponseEntity.ok(trips);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Trip> getTripDetails(@PathVariable final UUID id) {
+        final var trip = this.tripService.findById(id);
 
         return ResponseEntity.ok(trip);
     }
